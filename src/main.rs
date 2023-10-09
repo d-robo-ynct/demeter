@@ -10,7 +10,6 @@ fn main() -> Result<(), DynError>{
     let mut pub_msg = drobo_interfaces::msg::MdLibMsg::new().unwrap();
     pub_msg.address = 0x04;
     pub_msg.mode = 2;
-    pub_msg.power = 500;
 
     let logger = Logger::new("demeter");
 
@@ -19,7 +18,7 @@ fn main() -> Result<(), DynError>{
         subscriber, 
         Box::new(move |msg| {
             pub_msg.phase = if msg.data >= 0 {true} else {false};
-            pub_msg.power = if msg.data != 0 {500} else {0};
+            pub_msg.power = if msg.data != 0 {999} else {0};
             pr_info!(logger, "収穫機構: {}", if msg.data == 1 {"上昇"} else if msg.data == 0 {"ストップ"} else {"下降"});
             publisher.send(&pub_msg).unwrap();
         }),
