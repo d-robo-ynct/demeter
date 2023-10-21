@@ -17,7 +17,7 @@ fn main() -> Result<(), DynError>{
         subscriber, 
         Box::new(move |msg| {
             pub_msg.mode = if msg.data != 0 {5} else {2};
-            pub_msg.phase = if msg.data >= 0 {true} else {false};
+            pub_msg.phase = if msg.data <= 0 {true} else {false};
             pub_msg.power = if msg.data != 0 {999} else {0};
             pub_msg.port = if msg.data >= 0 {false} else {true};
             pub_msg.timeout = 100;
